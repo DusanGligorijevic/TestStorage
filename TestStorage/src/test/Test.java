@@ -27,27 +27,11 @@ public class Test {
 		user.getPrivileges().put(Permissions.create, true);
 		System.out.println("Uspesno ste kreirali admina. Admin ima sve privilegije!");
 		try {
+			
 			Class.forName("localStorageImpl.LocalStorageImpl");
 			Storage storage = StorageManager.getStorage();
-			/*
 			storage.initialise(user);
-			user.createUser();
-			for(User u : storage.getUsers()) {
-				System.out.println(u.getUsername().toString());
-			}
-			storage.disconnect(user);
-			storage.connect(user);
-			storage.JSONSave(storage.getUsers());
-			
 		
-			storage.create("C:\\Users\\38160\\Desktop\\Storage", 10, 10);
-			storage.delete("C:\\Users\\38160\\Desktop\\Storage"+"\\file0");
-			storage.saveImage();
-			storage.preview();
-			
-			*/
-			storage.transfer();
-			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -55,7 +39,6 @@ public class Test {
 		
 		
 		
-			
 		
 	}
 
