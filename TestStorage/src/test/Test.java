@@ -28,9 +28,9 @@ public class Test {
 		System.out.println("Uspesno ste kreirali admina. Admin ima sve privilegije!");
 		try {
 			
-			Class.forName("localStorageImpl.LocalStorageImpl");
+			Class.forName("googledriveapi.GoogleDriveImpl");
 			Storage storage = StorageManager.getStorage();
-			storage.initialise(user);
+			storage.preview();
 		
 			
 		} catch (Exception e) {
