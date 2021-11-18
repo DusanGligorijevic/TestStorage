@@ -43,7 +43,7 @@ public class Test {
 			case "create":
 					switch(params[1]) {
 					case "files": 
-							storage.createFiles(storage.StoragePath, params[2], Integer.parseInt(params[3]));
+							storage.createFiles(params[2], params[3], Integer.parseInt(params[4]));
 							break;
 					case "file":
 							storage.createFile(params[2], params[3]);
