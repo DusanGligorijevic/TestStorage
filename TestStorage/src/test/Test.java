@@ -16,7 +16,7 @@ public class Test {
 	public static void main(String[] args) {
 		try {	
 			//Class.forName("localStorageImpl.LocalStorageImpl");
-			Class.forName("googledriveapi.GoogleDriveImpl");
+			Class.forName("localStorageImpl.LocalStorageImpl");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -34,8 +34,10 @@ public class Test {
 		user.getPrivileges().put(Permissions.download, true);
 		user.getPrivileges().put(Permissions.preview, true);
 		user.getPrivileges().put(Permissions.create, true);
-		System.out.println("Uspesno ste kreirali admina. Admin ima sve privilegije!");
-		storage.initialise(user);
+		System.out.println("Uspesno ste kreirali SuperAdmina. SuperAdmin ima sve privilegije!");
+		System.out.println("Unesite putanju do skladista.");
+		String path =sc.next();
+		storage.initialise(user,path);
 		while(true) {
 			String input = sc.nextLine();
 			String[] params = input.split("\\s+");
@@ -43,18 +45,35 @@ public class Test {
 			case "create":
 					switch(params[1]) {
 					case "files": 
+							if(storage.check(params[2], params[3]))
 							storage.createFiles(params[2], params[3], Integer.parseInt(params[4]));
 							break;
 					case "file":
+							if(storage.check(params[2], params[3]))
 							storage.createFile(params[2], params[3]);
 							break;
 					case "folders":
+							if(storage.check(params[2], params[3]))
 							storage.createFolders(params[2], params[3], params[4]);
 							break;
 					case "folder":
+							if(storage.check(params[2], params[3]))
 							storage.createFolder(params[2], params[3]);
 							break;
+					case "user":
+						if(storage.getConnectedUser().getPrivileges().get(Permissions.create)) {
+						User u = storage.getConnectedUser().createUser();
+						storage.addUser(u);
+						}else
+							System.out.println("Ulogovani korisnik nema dozvolu za kreiranje drugih korisnika.");
+						break;
 					}
+					break;
+			case "disconnect":
+					storage.disconnect(storage.getConnectedUser());
+					break;
+			case "connect":
+					storage.connect(params[1],params[2]);
 					break;
 			case "delete":
 					storage.delete(params[1]);
@@ -79,7 +98,6 @@ public class Test {
 					}
 					break;
 			
-
 			}
 			
 			if(params[0].contentEquals("0"))
